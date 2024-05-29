@@ -1,0 +1,22 @@
+{
+  // Name of your mod
+  name: "MyMod"
+
+  // Author of the mod
+  author: "YourName"
+
+  // Description of the mod
+  description: "Description of the mod"
+
+  // Version of your mod
+  version: "1.0"
+
+  // Minimum game version this mod is compatible with
+  minGameVersion: 146
+
+  // Specify that this mod uses Java
+  java: true
+
+  // Main class of your mod
+  main: "mod.ModMain"
+}
