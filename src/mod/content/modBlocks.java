@@ -45,30 +45,33 @@ public class modBlocks {
     public static Block
             //power
             steamTurbine,
-            //liquids
-            liquidPipe, liquidRouter, liquidBridge, liquidJunction;
-    public static void load(){
+    //liquids
+    liquidPipe, liquidRouter, liquidBridge, liquidJunction;
+
+    public static void load() {
+
         steamTurbine = new ConsumeGenerator("steam-turbine") {{
-            group = BlockGroup.liquids;
-            powerProduction = 3f / 9f;
-            generateEffect = modFx.steamturbinegenerate;
-            effectChance = 0.6f;
-            size = 3;
-            ambientSound = Sounds.hum;
-            ambientSoundVolume = 0.3f;
+                group = BlockGroup.liquids;
+                powerProduction = 3f / 9f;
+                generateEffect = modFx.steamturbinegenerate;
+                effectChance = 0.6f;
+                size = 3;
+                ambientSound = Sounds.hum;
+                ambientSoundVolume = 0.3f;
+                solid = true;
 
-            drawer = new DrawMulti(new DrawDefault(), new DrawBlurSpin("-rotator", 9f) {{
-                blurThresh = 0.10f;
+                drawer = new DrawMulti(new DrawDefault(), new DrawBlurSpin("-rotator", 9f) {{
+                    blurThresh = 0.10f;
 
 
-            hasLiquids = true;
-            outputLiquid = new LiquidStack(Liquids.water, 0.25f);
-            consumeLiquid(modLiquids.steam, 1f);
-            liquidCapacity = 20f;
-            fogRadius = 2;
-            alwaysUnlocked = true;
-        }});
-                liquidPipe = new Conduit("liquid-pipe"){{
+                    hasLiquids = true;
+                    outputLiquid = new LiquidStack(Liquids.water, 0.25f);
+                    consumeLiquid(modLiquids.steam, 1f);
+                    liquidCapacity = 20f;
+                    fogRadius = 2;
+                    alwaysUnlocked = true;
+                }});
+                liquidPipe = new Conduit("liquid-pipe") {{
                     health = 100;
                     botColor = Color.valueOf("262525");
                     bridgeReplacement = liquidBridge;
@@ -77,31 +80,20 @@ public class modBlocks {
                     liquidPressure = 10f;
                     size = 1;
                 }};
-                liquidRouter = new LiquidRouter("liquid-router"){{
+                liquidRouter = new LiquidRouter("liquid-router") {{
                     health = 143;
                     size = 1;
                 }};
 
-                liquidBridge = new LiquidBridge("liquid-bridge"){{
+                liquidBridge = new LiquidBridge("liquid-bridge") {{
                     fadeIn = moveArrows = false;
                     arrowSpacing = 6f;
                     range = 5;
                     hasPower = false;
                 }};
-                //endregion
 
-
-
-
-
-
-
-
-
-
-
-
-
-        }};
+            }};
     }
 }
+
+
