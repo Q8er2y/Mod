@@ -1,22 +1,9 @@
 {
-  // Name of your mod
-  name: "Mod"
-
-  // Author of the mod
+  name: "mod"
   author: "YourName"
-
-  // Description of the mod
-  description: "Description of the mod"
-
-  // Version of your mod
-  version: "1.0"
-
-  // Minimum game version this mod is compatible with
+  description: "i need suggestions for this mod's name"
+  version: "0.1"
   minGameVersion: 146
-
-  // Specify that this mod uses Java
   java: true
-
-  // Main class of your mod
   main: "mod.ModMain"
 }
