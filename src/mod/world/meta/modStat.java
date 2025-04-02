@@ -10,9 +10,9 @@ public class modStat{
     maxSpeed = new Stat("mod-maxspeed", modStatCat.torque),
     maxTorque = new Stat("mod-maxtorque", modStatCat.torque),
 
-    emissivity = new Stat("unity-emissiveness", modStatCat.heat),
-    heatCapacity = new Stat("unity-heatcapacity", modStatCat.heat),
-    heatConductivity = new Stat("unity-heatconductivity", modStatCat.heat),
-    maxTemperature = new Stat("unity-maxtemp", modStatCat.heat);
+    emissivity = new Stat("mod-emissiveness", modStatCat.heat),
+    heatCapacity = new Stat("mod-heatcapacity", modStatCat.heat),
+    heatConductivity = new Stat("mod-heatconductivity", modStatCat.heat),
+    maxTemperature = new Stat("mod-maxtemp", modStatCat.heat);
 
 }

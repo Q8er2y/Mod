@@ -142,23 +142,13 @@ public class TorqueDrill extends Drill implements GraphBlock{
             //bottom rotor
             Draw.rect(rotorRegion, x, y, bottomrotor);
 
-            modDrawf.drawRotRect(rotorRotateRegion, x, y, 24f, 3.5f, 3.5f, 90 + bottomrotor, shaftRot, shaftRot + 180f);
-            modDrawf.drawRotRect(rotorRotateRegion, x, y, 24f, 3.5f, 3.5f, 90 + bottomrotor, shaftRot + 180f, shaftRot + 360f);
-
             //shaft
             Draw.rect(mbaseRegion, x, y, fixedRot);
 
             modDrawf.drawRotRect(wormDrive, x, y, 24f, 3.5f, 3.5f, fixedRot, rot, rot + 180f);
             modDrawf.drawRotRect(wormDrive, x, y, 24f, 3.5f, 3.5f, fixedRot, rot + 180f, rot + 360f);
-            modDrawf.drawRotRect(rotateRegion, x, y, 24f, 3.5f, 3.5f, fixedRot, rot, rot + 180f);
 
-            Draw.rect(overlayRegion, x, y, fixedRot);
 
-            //gears
-            Draw.rect(gearRegion, x + offset.x * 4f, y + offset.y * 4f, -deg/2);
-            Draw.rect(gearRegion, x - offset.x * 4f, y - offset.y * 4f, deg/2);
-
-            Draw.rect(topRegions[variant], x, y);
             drawTeamTop();
         }
 

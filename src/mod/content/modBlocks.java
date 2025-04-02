@@ -10,12 +10,11 @@ import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mod.world.blocks.*;
-import mod.world.blocks.distribution.DriveBelt;
-import mod.world.blocks.distribution.DriveShaft;
-import mod.world.blocks.distribution.SimpleTransmission;
+import mod.world.blocks.distribution.*;
 import mod.world.blocks.power.*;
 import mod.world.blocks.production.TorqueDrill;
 import mod.world.graph.*;
+import mod.world.graph.HeatGraphNode;
 import mod.world.meta.*;
 
 import mindustry.world.blocks.power.PowerGenerator;
@@ -29,7 +28,7 @@ import static mindustry.type.ItemStack.with;
 public class modBlocks {
     public static Block
     //power - kinetic
-    crankShaft, windTurbine, rotaryWaterExtractor, flywheel, torqueSource,
+    crankShaft, flywheel, torqueSource, steamgenerator, heatSource, heatPipe, combustionHeater, seebeckGenerator, smallRadiator,
     //other
     kineticDrill, driveShaft, driveBeltSmall, driveBeltLarge, shaftRouter, smallTransmission, torqueMeter;
 
@@ -103,20 +102,91 @@ public class modBlocks {
             health = 250;
             solid = true;
             rotate = true;
-            config.nodeConfig.put(TorqueGraph.class, b -> new TorqueGraphNode(0.02f, 8f, 6,60,b));
+            config.nodeConfig.put(TorqueGraph.class, b -> new TorqueGraphNode(0.02f, 8f, 10,60,b));
             config.fixedConnection(TorqueGraph.class, 0, 0, 1, 0);
         }};
 
-        kineticDrill = new TorqueDrill("auger-drill"){{
+        kineticDrill = new TorqueDrill("kinetic-drill"){{
             health = 2600;
             size = 3;
-            tier = 3;
-            drillTime = 400;
+            tier = 2;
+            drillTime = 600;
             requirements(Category.production, with(Items.lead, 60, Items.copper, 150));
             consumeLiquid(Liquids.water, 0.08f).boost();
 
-            config.nodeConfig.put(TorqueGraph.class, b -> new TorqueGraphNode(0.13f, 50f, 40,b));
+            config.nodeConfig.put(TorqueGraph.class, b -> new TorqueGraphNode(0.13f, 50f, 60,b));
             config.fixedConnection(TorqueGraph.class, 0, 1, 0,  0, 0, 0,  0, 1, 0,  0, 0, 0);
         }};
+        flywheel = new FlyWheel("fly-wheel"){{
+            health = 1000;
+            size = 3;
+            requirements(Category.power, with(Items.lead, 100, Items.copper, 150));
+
+            config.nodeConfig.put(TorqueGraph.class, b -> new TorqueGraphNode(0.1f, 100f, 100,b));
+            config.fixedConnection(TorqueGraph.class, 0, 1, 0,  0, 0, 0,  0, 1, 0,  0, 0, 0);
+
+        }};
+        steamgenerator = new SteamPiston("steam-piston"){{
+            health = 2500;
+            size = 3;
+            rotate = true;
+            requirements(Category.production, with(Items.lead, 60, Items.copper, 150));
+            consumeLiquid(Liquids.water, 1f);
+
+            config.nodeConfig.put(TorqueGraph.class, b -> new TorqueGraphNode(0.2f, 50f, 100,b));
+            config.fixedConnection(TorqueGraph.class, 0, 1, 0,  0, 0, 0,  0, 0, 0,  0, 0, 0);
+
+            config.nodeConfig.put(HeatGraph.class, b -> new HeatGraphNode(b,0,1,1,2000));
+            config.fixedConnection(HeatGraph.class, 0, 0, 0,  0, 0, 0,  0, 1, 0,  0, 0, 0);
+        }};
+        heatPipe = new HeatPipe("heat-pipe"){{
+            requirements(Category.power, with(Items.copper, 10));
+            health = 100;
+            solid = false;
+            config.nodeConfig.put(HeatGraph.class, b -> new HeatGraphNode(b, 0.005f, 0.4f, 1,2500 + HeatGraphNode.celsiusZero));
+            config.fixedConnection(HeatGraph.class, 1, 1, 1, 1);
+
+            underBullets = true;
+        }};
+        combustionHeater = new CombustionHeater("combustion-heater"){{
+            requirements(Category.power, with(Items.lead, 70, Items.copper, 70));
+            size = 2;
+            rotate = true;
+            health = 700;
+            solid = true;
+            config.nodeConfig.put(HeatGraph.class, b -> new HeatGraphNode(b, 0.01f, 0.1f, 4, 2100 + HeatGraphNode.celsiusZero, 1000 + HeatGraphNode.celsiusZero,0.015f));
+            config.fixedConnection(HeatGraph.class, 1, 1,  0, 0,  0, 0,  0, 0);
+
+        }};
+
+        heatSource = new HeatSource("heat-source"){{
+            solid = true;
+            requirements(Category.power,BuildVisibility.sandboxOnly,with());
+            config.nodeConfig.put(HeatGraph.class, b -> new HeatGraphNode(b,0,1,900,5000));
+            config.fixedConnection(HeatGraph.class, 1,1,1,1);
+        }};
+
+        seebeckGenerator = new SeebeckGenerator("seebeck-generator"){{
+            size = 3;
+            rotate = true;
+            health = 2200;
+            solid = true;
+            hasPower = true;
+            config.nodeConfig.put(HeatGraph.class, b -> new HeatGraphNode(b, 0.01f, 0.01f,9, 1800 + HeatGraphNode.celsiusZero));
+            config.fixedConnection(HeatGraph.class, 0,1,0,  0,0,0,  0,1,0  ,0,0,0);
+            requirements(Category.power, with(Items.graphite, 30, Items.copper, 120,Items.titanium, 100));
+        }};
+        smallRadiator = new HeatRadiator("small-radiator"){{
+
+            size = 2;
+            rotate = true;
+            health = 1100;
+            solid = true;
+            config.nodeConfig.put(HeatGraph.class, b -> new HeatGraphNode(b, 0.4f, 0.15f, 4,2400 + HeatGraphNode.celsiusZero));
+            config.fixedConnection(HeatGraph.class, 0, 0,  1, 1,  0, 0,  1, 1);
+            requirements(Category.power, with(Items.graphite, 30, Items.copper, 100));
+        }};
+
+
     }
 }

@@ -33,11 +33,11 @@ public class TorqueMeter extends GenericGraphBlock{
 
             n1.getGraph().propagate(graphs::add);
             table.row();
-            table.add(new Bar(() -> Core.bundle.format("bar.unity-torqueinertia", Strings.fixed(collect(graphs,g->g.lastInertia), 1)), () -> Pal.gray, () -> 1));
+            table.add(new Bar(() -> Core.bundle.format("bar.mod-torqueinertia", Strings.fixed(collect(graphs,g->g.lastInertia), 1)), () -> Pal.gray, () -> 1));
             table.row();
-            table.add(new Bar(() -> Core.bundle.format("bar.unity-torqueforce", Strings.fixed(collect(graphs,g->g.lastGrossForceApplied),1)), () -> Pal.boostTo, () -> 1));
+            table.add(new Bar(() -> Core.bundle.format("bar.mod-torqueforce", Strings.fixed(collect(graphs,g->g.lastGrossForceApplied),1)), () -> Pal.boostTo, () -> 1));
             table.row();
-            table.add(new Bar(() -> Core.bundle.format("bar.unity-torqueuse", Strings.fixed(collect(graphs,g->g.lastGrossForceApplied-g.lastNetForceApplied),1)), () -> Pal.health, () -> 1));
+            table.add(new Bar(() -> Core.bundle.format("bar.mod-torqueuse", Strings.fixed(collect(graphs,g->g.lastGrossForceApplied-g.lastNetForceApplied),1)), () -> Pal.health, () -> 1));
         }
 
         float collect(Seq<TorqueGraph> seq,Floatf<TorqueGraph> r){
